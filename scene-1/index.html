@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame model viewer</title>
+    <meta name="description" content="A-Frame model viewer">
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    <script>
+    AFRAME.registerComponent('navigate', {
+      init: function () {
+        var self = this;
+        this.el.addEventListener('click', function () {
+          window.location.href = self.data.url;
+        })
+      }
+    });
+
+    AFRAME.registerComponent('beamer', {
+      init: function () {
+        this.children = Array.prototype.slice.call(this.el.children);
+      },
+      tick: function () {
+        this.children.forEach(function (child) {
+          var rotation = child.getAttribute('rotation');
+          child.setAttribute('rotation', {
+            x: rotation.x + 0.4,
+            y: rotation.y + 0.4,
+            z: rotation.z + 0.4
+          })
+        })
+      }
+    })
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="menu-bar" geometry="primitive: box; width: 1; height: 0.05; depth: 0.05" material="color: rgb(243, 8, 255)"></a-mixin>
+        <a-mixin id="menu-item" geometry="primitive: sphere; radius: 0.06" material="color: rgb(243, 8, 255); shader: flat"></a-mixin>
+        <a-mixin id="menu-label" text="width: 1.5; align: center" position="0 -0.1 0"></a-mixin>
+        <a-mixin id="menu-selected" geometry="primitive: cone; radiusBottom: 0; radiusTop: 0.08; height: 0.1; segmentsRadial: 4" material="color: rgb(250, 255, 0); shader: flat" position="0 0.1 0"></a-mixin>
+
+        <a-asset-item id="head" src="model/head.dae"></a-asset-item>
+        <a-mixin id="beams" geometry="primitive: box; width:100; height: 0.1; depth: 0.05;" material="shader: flat; color: #ff00cf"></a-mixin>
+      </a-assets>
+
+      <a-entity light="type: point; color: #FFF; intensity: 0.9" position="0 2 -4"></a-entity>
+      
+      <a-entity light="type: point; color: rgb(235, 0, 255); intensity: 2" position="2 2 1"></a-entity>
+      
+      <a-entity light="type: point; color: #fff; intensity: 0.5" position="0 0 10"></a-entity>
+      <!-- <a-entity light="type: directional; color: #fff; intensity: 0.5" position="0 1 4"></a-entity> -->
+
+      <a-entity collada-model="#head" scale="1.5 1.5 1.5"position="0 0 -2">
+          <a-entity position="0 2 0" beamer>
+            <a-entity mixin="beams" rotation="0 0 45"></a-entity>
+            <a-entity mixin="beams" rotation="0 90 0"></a-entity>
+            
+            <a-entity mixin="beams" rotation="80 10 45"></a-entity>
+            <a-entity mixin="beams" rotation="30 0 0"></a-entity>
+            <a-entity mixin="beams" rotation="90 0 42"></a-entity>
+            <a-entity mixin="beams" rotation="0 90 90"></a-entity>
+            <a-entity mixin="beams" rotation="45 0 45"></a-entity>
+            <a-entity mixin="beams" rotation="0 10 22"></a-entity>
+          </a-entity>
+      </a-entity>
+
+      <a-gradient-sky material="shader: gradient; topColor: 235, 0, 255; bottomColor: 0 121 255;"></a-gradient-sky>
+
+      <a-entity camera="userHeight: 1.6" look-controls mouse-cursor position="0 0 2">
+        <a-entity position="0 -0.5 -1">
+          <a-entity mixin="menu-bar"></a-entity>
+          <a-entity mixin="menu-item" navigate="url: ../" position="-0.5 0 0">
+            <a-entity mixin="menu-label" text="value: GRINDER;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item">
+            <a-entity mixin="menu-selected" spin></a-entity>
+            <a-entity mixin="menu-label" text="value: HEAD-SPACE;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item" navigate="url: ../scene-2" position="0.5 0 0">
+            <a-entity mixin="menu-label" text="value: TOUR;"></a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+    <script>
+
+    </script>
+  </body>
+</html>
+
+
+

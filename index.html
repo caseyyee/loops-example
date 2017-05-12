@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame model viewer</title>
+    <meta name="description" content="A-Frame model viewer">
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+  </head>
+  <body>
+    <script>
+    AFRAME.registerComponent('navigate', {
+      init: function () {
+        var self = this;
+        this.el.addEventListener('click', function () {
+          window.location.href = self.data.url;
+        })
+      }
+    });
+
+    AFRAME.registerComponent('spin', {
+      init: function () {
+        this.children = Array.prototype.slice.call(this.el.children);
+      },
+      tick: function () {
+        var rotation = this.el.getAttribute('rotation');
+        this.el.setAttribute('rotation', {
+          y: rotation.y + 2
+        })
+
+        var self = this;
+        this.children.forEach(function(child) {
+          var position = child.getAttribute('position');
+          var positionY = position.y > 2 ? -2 : position.y + 0.02;
+          child.setAttribute('position', {
+            y: positionY
+          })
+        })
+      }
+    });
+
+    AFRAME.registerComponent('bubbles', {
+      init: function () {
+        var count = this.data.count;
+        var radius = this.data.radius;
+        var size = this.data.size;
+        for (var i = 0; i < count; i++) {
+          var el = document.createElement('a-entity');
+          el.setAttribute('mixin', 'balls');
+          el.setAttribute('geometry', {
+            radius: Math.random() * size
+          });
+          function getRandPos (radius) {
+            return (Math.random() * radius) - (radius / 2);
+          }
+          el.setAttribute('position', {
+            x: getRandPos(radius),
+            y: getRandPos(radius),
+            z: getRandPos(radius)
+          });
+          this.el.appendChild(el);
+        }
+      }
+    });
+
+    </script>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="wall" geometry="primitive: plane; width: 4; height: 4"  material="color: rgb(131, 164, 179); metalness: 0; roughness: 1"></a-mixin>
+        <a-mixin id="balls" geometry="primitive: sphere;"></a-mixin>
+        <a-mixin id="menu-bar" geometry="primitive: box; width: 1; height: 0.05; depth: 0.05" material="color: rgb(243, 8, 255)"></a-mixin>
+        <a-mixin id="menu-item" geometry="primitive: sphere; radius: 0.06" material="color: rgb(243, 8, 255); shader: flat"></a-mixin>
+        <a-mixin id="menu-label" text="width: 1.5; align: center" position="0 -0.1 0"></a-mixin>
+        <a-mixin id="menu-selected" geometry="primitive: cone; radiusBottom: 0; radiusTop: 0.08; height: 0.1; segmentsRadial: 4" material="color: rgb(250, 255, 0); shader: flat" position="0 0.1 0"></a-mixin>
+      </a-assets>
+
+      <a-entity mixin="wall" position="0 2 -2" rotation="0 0 0"></a-entity>
+      <a-entity mixin="wall" position="2 2 0" rotation="0 -90 0"></a-entity>
+      <a-entity mixin="wall" position="0 2 2" rotation="0 180 0"></a-entity>
+      <a-entity mixin="wall" position="-2 2 0" rotation="0 90 0"></a-entity>
+
+      <a-entity mixin="wall" position="0 4 0" rotation="90 0 0"></a-entity>
+      <a-entity mixin="wall" position="0 0 0" rotation="-90 0 0"></a-entity>
+
+      <a-entity light="type: point; color: #FFF; intensity: 0.9" position="0 3.8 4"></a-entity>
+      <!-- <a-entity light="type: directional; color: #fff; intensity: 0.5" position="0 1 4"></a-entity> -->
+
+      <a-entity geometry="primitive: cylinder; height: 0.6; radius: 0.3" material="color: rgb(131, 164, 179)" position="0 0.3 0"></a-entity>
+
+      <a-entity position="0 1.5 0">
+        <a-entity text="value: WELCOME TO THE; width: 5; align: center" position="0 0.3 0"></a-entity>
+        <a-entity text="value: GRINDER; width: 10; align: center"></a-entity>
+      </a-entity>
+
+      <a-entity position="0 2 0" bubbles="radius: 4; size: 0.3; count: 100" spin></a-entity>
+
+      <a-entity camera="userHeight: 1.6" look-controls mouse-cursor position="0 0 2">
+        <a-entity position="0 -0.5 -1">
+          <a-entity mixin="menu-bar"></a-entity>
+          <a-entity mixin="menu-item" position="-0.5 0 0">
+            <a-entity mixin="menu-selected" spin></a-entity>
+            <a-entity mixin="menu-label" text="value: GRINDER;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item" navigate="url: scene-1">
+            <a-entity mixin="menu-label" text="value: HEAD-SPACE;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item" navigate="url: scene-2" position="0.5 0 0">
+            <a-entity mixin="menu-label" text="value: TOUR;"></a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <a-sky color="#333333"></a-sky>
+    </a-scene>
+    <script>
+
+    </script>
+  </body>
+</html>
+
+
+

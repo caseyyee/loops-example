@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.78.0 commit date:2017-02-03, commit time:16:54, hash:9cb21a1</authoring_tool>
+    </contributor>
+    <created>2017-05-10T15:44:06</created>
+    <modified>2017-05-10T15:44:06</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images/>
+  <library_effects>
+    <effect id="Material_002-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.7797613 0 0.8000001 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.7142857 0.01514379 0 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="Material_003-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.04249699 0.43911 0.64 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Material_002-material" name="Material_002">
+      <instance_effect url="#Material_002-effect"/>
+    </material>
+    <material id="Material_003-material" name="Material_003">
+      <instance_effect url="#Material_003-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Mesh-mesh" name="Mesh">
+      <mesh>
+        <source id="Mesh-mesh-positions">
+          <float_array id="Mesh-mesh-positions-array" count="60">0.2359477 0 0.186 -0.1450523 0.201 0.186 -0.2310523 0 0.186 0.1449477 0.201 -0.186 -0.005052328 0.536 -0.186 -0.1070523 0.289 -0.186 0.2359477 0 -0.186 0.1449477 0.201 0.186 -0.1450523 0.201 -0.186 -0.2310523 0 -0.186 -0.3310523 0 -0.186 -0.3310523 0 0.186 -0.003552317 0.7494407 -0.186 -0.003552317 0.7494407 0.186 0.3359477 0 -0.186 0.3359477 0 0.186 0.1049476 0.289 -0.186 -0.005052328 0.536 0.186 -0.1070523 0.289 0.186 0.1049476 0.289 0.186</float_array>
+          <technique_common>
+            <accessor source="#Mesh-mesh-positions-array" count="20" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Mesh-mesh-normals">
+          <float_array id="Mesh-mesh-normals-array" count="87">4.06984e-7 0 1 0 0 -1 3.05238e-7 0 -1 -0.2841938 -0.4406347 0.8515134 -0.4323666 -0.6703559 -0.6030609 -0.4323666 -0.6703559 0.6030609 0.2863329 -0.4339857 0.8542072 -0.2841938 -0.4406347 -0.8515134 0.4398986 -0.6667147 0.6016485 0.2863329 -0.4339857 -0.8542072 -0.6940031 -0.4540929 0.5587122 0.4398986 -0.6667147 -0.6016485 -0.005584955 0.8362807 0.5482732 -0.6940031 -0.4540929 -0.5587122 0.6972945 -0.4496341 0.5582202 -0.005584955 0.8362807 -0.5482732 0.6972945 -0.4496341 -0.5582202 0.002990841 -0.2207441 0.9753273 -0.2652738 0.1722509 -0.9486621 -0.2652738 0.1722509 0.9486621 0.2691196 0.1800336 0.9461303 0.002990841 -0.2207441 -0.9753273 0.2691196 0.1800336 -0.9461303 0 0 1 -2.98002e-7 0 -1 3.12407e-7 0 -1 -3.48151e-7 0 -1 -3.97336e-7 0 1 3.12407e-7 0 1</float_array>
+          <technique_common>
+            <accessor source="#Mesh-mesh-normals-array" count="29" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Mesh-mesh-vertices">
+          <input semantic="POSITION" source="#Mesh-mesh-positions"/>
+        </vertices>
+        <polylist material="Material_002-material" count="30">
+          <input semantic="VERTEX" source="#Mesh-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Mesh-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>3 1 16 1 14 1 12 2 5 2 10 2 7 3 6 4 0 5 1 6 3 7 7 3 2 8 8 9 1 6 11 10 9 11 2 8 13 12 10 13 11 10 15 14 12 15 13 12 0 5 14 16 15 14 17 17 16 18 19 19 18 20 4 21 17 17 19 19 5 22 18 20 12 24 14 24 16 24 3 1 8 1 16 1 14 1 6 1 3 1 16 25 4 25 12 25 8 1 5 1 16 1 9 1 10 1 8 1 12 26 4 26 5 26 8 1 10 1 5 1 7 3 3 7 6 4 1 6 8 9 3 7 2 8 9 11 8 9 11 10 10 13 9 11 13 12 12 15 10 13 15 14 14 16 12 15 0 5 6 4 14 16 17 17 4 21 16 18 18 20 5 22 4 21 19 19 16 18 5 22</p>
+        </polylist>
+        <polylist material="Material_003-material" count="10">
+          <input semantic="VERTEX" source="#Mesh-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Mesh-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>18 0 13 0 11 0 7 23 15 23 19 23 1 23 18 23 11 23 17 23 13 23 18 23 11 23 2 23 1 23 7 23 0 23 15 23 15 27 13 27 19 27 19 23 18 23 1 23 13 28 17 28 19 28 19 23 1 23 7 23</p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers/>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Text" name="Text" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 -4.37114e-8 -1 0 0 1 -4.37114e-8 0 0 0 0 1</matrix>
+        <instance_geometry url="#Mesh-mesh" name="Text">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Material_002-material" target="#Material_002-material"/>
+              <instance_material symbol="Material_003-material" target="#Material_003-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

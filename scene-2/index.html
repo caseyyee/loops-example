@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>360&deg; Tour</title>
+    <meta name="description" content="360&deg; Tour - A-Frame">
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="primitives/tour.js"></script>
+    <script src="primitives/hotspot.js"></script>
+    <script src="primitives/panorama.js"></script>
+    <script>
+    AFRAME.registerComponent('navigate', {
+      init: function () {
+        var self = this;
+        this.el.addEventListener('click', function () {
+          window.location.href = self.data.url;
+        })
+      }
+    });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="hotspot-text" text="font: exo2bold; width: 5" geometry="primitive: plane; width: 1.6; height: 0.4" material="color: black;" position="0 -0.6 0"></a-mixin>
+        <a-mixin id="hotspot-target" geometry="primitive: octahedron; radius: 0.2;" material="flatShading: true; color: rgb(255, 0, 161)"></a-mixin>
+        <a-mixin id="menu-bar" geometry="primitive: box; width: 1; height: 0.05; depth: 0.05" material="color: rgb(243, 8, 255)"></a-mixin>
+        <a-mixin id="menu-item" geometry="primitive: sphere; radius: 0.06" material="color: rgb(243, 8, 255); shader: flat"></a-mixin>
+        <a-mixin id="menu-label" text="width: 1.5; align: center" position="0 -0.1 0"></a-mixin>
+        <a-mixin id="menu-selected" geometry="primitive: cone; radiusBottom: 0; radiusTop: 0.08; height: 0.1; segmentsRadial: 4" material="color: rgb(250, 255, 0); shader: flat" position="0 0.1 0"></a-mixin>
+      </a-assets>
+
+      <a-tour>
+        <a-panorama id="livingroom" src="images/livingroom.jpg" rotation="0 90 0"></a-panorama>
+        <a-panorama id="kitchen" src="images/kitchen.jpg" rotation="0 -90 0"></a-panorama>
+
+        <a-hotspot for="livingroom" to="kitchen" mixin="hotspot-target" position="5 0 0" rotation="0 -90 0">
+          <a-text value="KITCHEN" align="center" mixin="hotspot-text"></a-text>
+        </a-hotspot>
+        <a-hotspot for="kitchen" to="livingroom" mixin="hotspot-target" position="2 0 5" rotation="0 180 0">
+          <a-text value="LIVING ROOM" align="center" mixin="hotspot-text"></a-text>
+        </a-hotspot>
+      </a-tour>
+
+      <a-entity camera look-controls mouse-cursor>
+        <a-entity position="0 -0.5 -1">
+          <a-entity mixin="menu-bar" navigate="url: ../"></a-entity>
+          <a-entity mixin="menu-item" position="-0.5 0 0">
+            <a-entity mixin="menu-label" text="value: GRINDER;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item" navigate="url: ../scene-1">
+            <a-entity mixin="menu-label" text="value: HEAD-SPACE;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item" position="0.5 0 0">
+            <a-entity mixin="menu-selected" spin></a-entity>
+            <a-entity mixin="menu-label" text="value: TOUR;"></a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
