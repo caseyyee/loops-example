@@ -25,9 +25,9 @@
         this.children.forEach(function (child) {
           var rotation = child.getAttribute('rotation');
           child.setAttribute('rotation', {
-            x: rotation.x + 0.4,
+            x: rotation.x + 0.1,
             y: rotation.y + 0.4,
-            z: rotation.z + 0.4
+            z: rotation.z + 0.1
           })
         })
       }
@@ -56,11 +56,11 @@
       <a-entity collada-model="#head" scale="1.5 1.5 1.5"position="0 0 -2">
           <a-entity position="0 2 0" beamer>
             <a-entity mixin="beams" rotation="0 0 45"></a-entity>
-            <a-entity mixin="beams" rotation="0 90 0"></a-entity>
-            
+            <a-entity mixin="beams" rotation="60 90 0"></a-entity>
+
             <a-entity mixin="beams" rotation="80 10 45"></a-entity>
             <a-entity mixin="beams" rotation="30 0 0"></a-entity>
-            <a-entity mixin="beams" rotation="90 0 42"></a-entity>
+            <a-entity mixin="beams" rotation="90 80 42"></a-entity>
             <a-entity mixin="beams" rotation="0 90 90"></a-entity>
             <a-entity mixin="beams" rotation="45 0 45"></a-entity>
             <a-entity mixin="beams" rotation="0 10 22"></a-entity>
@@ -69,7 +69,7 @@
 
       <a-gradient-sky material="shader: gradient; topColor: 235, 0, 255; bottomColor: 0 121 255;"></a-gradient-sky>
 
-      <a-entity camera="userHeight: 1.6" look-controls mouse-cursor position="0 0 2">
+      <a-entity camera="userHeight: 1.6" look-controls mouse-cursor wasd-controls position="0 0 2">
         <a-entity position="0 -0.5 -1">
           <a-entity mixin="menu-bar"></a-entity>
           <a-entity mixin="menu-item" navigate="url: ../index.html" position="-0.5 0 0">

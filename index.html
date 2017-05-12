@@ -66,12 +66,13 @@
     </script>
     <a-scene>
       <a-assets>
-        <a-mixin id="wall" geometry="primitive: plane; width: 4; height: 4"  material="color: rgb(131, 164, 179); metalness: 0; roughness: 1"></a-mixin>
+        <a-mixin id="wall" geometry="primitive: plane; width: 4; height: 4"  material="color: #382b52; metalness: 0; roughness: 1"></a-mixin>
         <a-mixin id="balls" geometry="primitive: sphere;"></a-mixin>
         <a-mixin id="menu-bar" geometry="primitive: box; width: 1; height: 0.05; depth: 0.05" material="color: rgb(243, 8, 255)"></a-mixin>
         <a-mixin id="menu-item" geometry="primitive: sphere; radius: 0.06" material="color: rgb(243, 8, 255); shader: flat"></a-mixin>
         <a-mixin id="menu-label" text="width: 1.5; align: center" position="0 -0.1 0"></a-mixin>
         <a-mixin id="menu-selected" geometry="primitive: cone; radiusBottom: 0; radiusTop: 0.08; height: 0.1; segmentsRadial: 4" material="color: rgb(250, 255, 0); shader: flat" position="0 0.1 0"></a-mixin>
+        <a-asset-item id="head" src="scene-1/model/head.dae"></a-asset-item>
       </a-assets>
 
       <a-entity mixin="wall" position="0 2 -2" rotation="0 0 0"></a-entity>
@@ -85,7 +86,8 @@
       <a-entity light="type: point; color: #FFF; intensity: 0.9" position="0 3.8 4"></a-entity>
       <!-- <a-entity light="type: directional; color: #fff; intensity: 0.5" position="0 1 4"></a-entity> -->
 
-      <a-entity geometry="primitive: cylinder; height: 0.6; radius: 0.3" material="color: rgb(131, 164, 179)" position="0 0.3 0"></a-entity>
+      <a-entity collada-model="#head" scale="0.25 0.25 0.25"position="0 0.9 0"></a-entity>
+      <a-entity geometry="primitive: cylinder; height: 0.6; radius: 0.3" material="color: #382b52" position="0 0.3 0"></a-entity>
 
       <a-entity position="0 1.5 0">
         <a-entity text="value: WELCOME TO THE; width: 5; align: center" position="0 0.3 0"></a-entity>
@@ -94,7 +96,7 @@
 
       <a-entity position="0 2 0" bubbles="radius: 4; size: 0.3; count: 100" spin></a-entity>
 
-      <a-entity camera="userHeight: 1.6" look-controls mouse-cursor position="0 0 2">
+      <a-entity camera="userHeight: 1.6" look-controls mouse-cursor wasd-controls position="0 0 2">
         <a-entity position="0 -0.5 -1">
           <a-entity mixin="menu-bar"></a-entity>
           <a-entity mixin="menu-item" position="-0.5 0 0">
