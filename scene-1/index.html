@@ -7,6 +7,7 @@
     <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
     <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    
     <script>
     AFRAME.registerComponent('navigate', {
       init: function () {
@@ -32,6 +33,27 @@
         })
       }
     })
+    
+    AFRAME.registerComponent('spin', {
+      init: function () {
+        this.children = Array.prototype.slice.call(this.el.children);
+      },
+      tick: function () {
+        var rotation = this.el.getAttribute('rotation');
+        this.el.setAttribute('rotation', {
+          y: rotation.y + 2
+        })
+
+        var self = this;
+        this.children.forEach(function(child) {
+          var position = child.getAttribute('position');
+          var positionY = position.y > 2 ? -2 : position.y + 0.02;
+          child.setAttribute('position', {
+            y: positionY
+          })
+        })
+      }
+    });
     </script>
   </head>
   <body>
@@ -47,13 +69,10 @@
       </a-assets>
 
       <a-entity light="type: point; color: #FFF; intensity: 0.9" position="0 2 -4"></a-entity>
-      
       <a-entity light="type: point; color: rgb(235, 0, 255); intensity: 2" position="2 2 1"></a-entity>
-      
       <a-entity light="type: point; color: #fff; intensity: 0.5" position="0 0 10"></a-entity>
-      <!-- <a-entity light="type: directional; color: #fff; intensity: 0.5" position="0 1 4"></a-entity> -->
 
-      <a-entity collada-model="#head" scale="1.5 1.5 1.5"position="0 0 -2">
+      <a-entity collada-model="#head" position="0 1 -2">
           <a-entity position="0 2 0" beamer>
             <a-entity mixin="beams" rotation="0 0 45"></a-entity>
             <a-entity mixin="beams" rotation="60 90 0"></a-entity>

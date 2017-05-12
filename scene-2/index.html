@@ -18,6 +18,27 @@
         })
       }
     });
+    
+    AFRAME.registerComponent('spin', {
+      init: function () {
+        this.children = Array.prototype.slice.call(this.el.children);
+      },
+      tick: function () {
+        var rotation = this.el.getAttribute('rotation');
+        this.el.setAttribute('rotation', {
+          y: rotation.y + 2
+        })
+
+        var self = this;
+        this.children.forEach(function(child) {
+          var position = child.getAttribute('position');
+          var positionY = position.y > 2 ? -2 : position.y + 0.02;
+          child.setAttribute('position', {
+            y: positionY
+          })
+        })
+      }
+    });
     </script>
   </head>
   <body>
