@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame model viewer</title>
+    <meta name="description" content="A-Frame model viewer">
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+
+    <script>
+    AFRAME.registerComponent('navigate', {
+      init: function () {
+        var self = this;
+        this.el.addEventListener('click', function () {
+          window.location.href = self.data.url;
+        })
+      }
+    });
+
+    AFRAME.registerComponent('beamer', {
+      init: function () {
+        this.children = Array.prototype.slice.call(this.el.children);
+      },
+      tick: function () {
+        this.children.forEach(function (child) {
+          var rotation = child.getAttribute('rotation');
+          child.setAttribute('rotation', {
+            x: rotation.x + 0.1,
+            y: rotation.y + 0.4,
+            z: rotation.z + 0.1
+          })
+        })
+      }
+    })
+
+    AFRAME.registerComponent('spin', {
+      init: function () {
+        this.children = Array.prototype.slice.call(this.el.children);
+      },
+      tick: function () {
+        var rotation = this.el.getAttribute('rotation');
+        this.el.setAttribute('rotation', {
+          y: rotation.y + 2
+        })
+
+        var self = this;
+        this.children.forEach(function(child) {
+          var position = child.getAttribute('position');
+          var positionY = position.y > 2 ? -2 : position.y + 0.02;
+          child.setAttribute('position', {
+            y: positionY
+          })
+        })
+      }
+    });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="menu-bar" geometry="primitive: box; width: 1; height: 0.05; depth: 0.05" material="color: rgb(243, 8, 255)"></a-mixin>
+        <a-mixin id="menu-item" geometry="primitive: sphere; radius: 0.06" material="color: rgb(243, 8, 255); shader: flat"></a-mixin>
+        <a-mixin id="menu-label" text="width: 1.5; align: center" position="0 -0.1 0"></a-mixin>
+        <a-mixin id="menu-selected" geometry="primitive: cone; radiusBottom: 0; radiusTop: 0.08; height: 0.1; segmentsRadial: 4" material="color: rgb(250, 255, 0); shader: flat" position="0 0.1 0"></a-mixin>
+
+        <a-asset-item id="trex" src="trex.dae"></a-asset-item>
+      </a-assets>
+
+      <a-entity collada-model="#trex" scale="1.2 1.2 1.2" position="0 0.5 -1" spin></a-entity>
+
+      <a-gradient-sky material="shader: gradient; topColor: 10, 10, 10; bottomColor: 115, 115, 115" material="shader: flat"></a-gradient-sky>
+
+      <a-entity camera="userHeight: 1.6" look-controls mouse-cursor wasd-controls position="0 0 2">
+        <a-entity position="0 -0.5 -1">
+          <a-entity mixin="menu-bar"></a-entity>
+          <a-entity mixin="menu-item" navigate="url: ../index.html" position="-0.5 0 0">
+            <a-entity mixin="menu-label" text="value: GRINDER;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item">
+            <a-entity mixin="menu-selected" spin></a-entity>
+            <a-entity mixin="menu-label" text="value: HEAD-SPACE;"></a-entity>
+          </a-entity>
+          <a-entity mixin="menu-item" navigate="url: ../scene-2" position="0.5 0 0">
+            <a-entity mixin="menu-label" text="value: TOUR;"></a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+    <script>
+
+    </script>
+  </body>
+</html>
+
+
+
